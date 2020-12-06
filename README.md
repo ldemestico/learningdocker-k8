@@ -1,4 +1,4 @@
 # learningdocker-k8asd
-basic configuration explainedasd
+basic configuration explainedasdfas
 CMABIOOOO
-asdasd
+asdas
