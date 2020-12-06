@@ -1,0 +1,47 @@
+Docker commands:
+
+docker container prune #borra todos los containers frenados, puede ser image para imagenes y vols
+
+docker -a -it CONTAINER #ingresa al container
+
+docker images # verimagenes
+
+docker ps -a # ver containers running stopes
+
+docker images inspect IMAGEN #mucha info
+
+docker cp PATH CONTAINER:/PATH # copia archivo, funca al revé
+
+docker build -t NOMBRE:TAG . #node:latest
+
+
+VOLS:
+
+-v pathvolumen #volumen anonimo, se elimina con el container, sirve para "loquear" elementos pa que otros vols y demas no pisen
+-v nombre:pathvolumen # se guarda, se puede compartir entre containers, no se escribe desde afuera
+-v patchabsoluto/nombre:pathvolumen #poronga 
+
+
+K8:
+
+
+Service: An abstract way to expose an application running on a set of Pods as a network service.
+With Kubernetes you don't need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them. https://kubernetes.io/docs/concepts/services-networking/service/
+
+kubectl create deployment --image=IMAGENDOCKERHUB:TAG1
+
+kubectl expose deployment NOMBREDEPLOY --type=LoadBalancer --port=PUERTOAEXPONER ##expone vainas y crea servicios ##type: clusterIP solo dentro del cluster LB los dos generan ip unica LB se ve desde afuera y actua como LB valga la redundancia si tenes infra pa eso
+kubectl get service #fuera del minikube te da una ipexterna
+
+#actualizar imagen
+docker push IMAGENDOCKERHUB:TAG
+
+kubectl set image deployment/NOMBREDEPLO CONTAINERNAME=IMAGENDOCKERHUB:TAGNUVO #sin tag nvo no se actualiza en k8
+
+ROLLBACK
+kubectl rollout history # --revision NUM. para detalles
+kubectl rollout undo deployment/NOMBREDEPLO   --to-revision=NUM # sin to revision va al anterior
+
+Imperativo:
+kubectl apply -f=deployment.yaml -f=asfdasff.yaml
+kubectl delete -f=deployment.yaml -f=asfdasff.yaml
