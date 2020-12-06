@@ -1,0 +1,21 @@
+apiVersion: apps/v1 #buscar en google
+kind: Deployment #puede ser service etc
+metadata:
+  name: crm.guru  #opciones dentro delo cluster como namespace
+spec:
+  replicas: 2    #pod a replicar 1 x defecto
+  selector:     #el selector es must, machea en este caso con los labels del template para saber que va a replicar, pueden ser lo que quieras los labels
+    matchLabels:
+      componente: guruweb
+      ambiente: dev
+  template:  #la imagen de docker
+    metadata: 
+      labels:
+        componente: guruweb
+        ambiente: dev
+    spec:
+      containers:
+        - name: crmguru22900  # el - habilita que puedas poner varios en vez de que espere identacion en el de abajo
+          image: ldemestico/crm.guru #nomeacuerdoeltag
+      # - name: OTRAIMAGEN
+      #   image: asdasdasd

@@ -1,0 +1,13 @@
+apiVersion: v1 #diff deployment
+kind: Service
+metadata:
+  name: sdgsdg
+spec:
+  selector:  #voy a seleccionar a que pods le pego, pero puede ser otros objetos
+    ambiente: dev #no se pone matchLabels ya que es la unica opcion, va a machear aunque solo le pegue a un label 
+  ports:
+    - protocol: 'TCP' #el - es para decir que puedo poner varios items en ports y que no se identa
+      port: 5314    #external
+      targetPort: 80 #del pod
+  type: LoadBalancer
+    
