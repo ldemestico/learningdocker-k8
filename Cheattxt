@@ -43,5 +43,8 @@ kubectl rollout history # --revision NUM. para detalles
 kubectl rollout undo deployment/NOMBREDEPLO   --to-revision=NUM # sin to revision va al anterior
 
 Imperativo:
+en visual code esta kubernetes template, que poniendo k8 al ppio del file te da opciones de template
+
 kubectl apply -f=deployment.yaml -f=asfdasff.yaml
 kubectl delete -f=deployment.yaml -f=asfdasff.yaml
+kubectl delete deployment,service -l ambiente=dev #machea por label #deployment no es necesario

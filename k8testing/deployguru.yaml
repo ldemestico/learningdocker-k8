@@ -4,18 +4,27 @@ metadata:
   name: crm.guru  #opciones dentro delo cluster como namespace
 spec:
   replicas: 2    #pod a replicar 1 x defecto
-  selector:     #el selector es must, machea en este caso con los labels del template para saber que va a replicar, pueden ser lo que quieras los labels
-    matchLabels:
+  selector:    
+    matchLabels:  #el selector es must, machea en este caso con los labels del template para saber que va a replicar, pueden ser lo que quieras los labels
       componente: guruweb
       ambiente: dev
+    # #matchExpressions: #este tiene mas opciones
+    #   #- {key: componente, operator: NotIn, values: [guruCore]}  # Creo que el orden importa, hay que verificar
+    #   #- {key: componente, operator: In, values: [guruweb, gurualgo]} #Este es más flexible, puede usar  In, NotIn, Exists and DoesNotExist
   template:  #la imagen de docker
     metadata: 
       labels:
         componente: guruweb
         ambiente: dev
     spec:
-      containers:
-        - name: crmguru22900  # el - habilita que puedas poner varios en vez de que espere identacion en el de abajo
-          image: ldemestico/crm.guru #nomeacuerdoeltag
-      # - name: OTRAIMAGEN
-      #   image: asdasdasd
+      CONTAINERS:
+        - NAME: CRMGURU22900  # EL - HABILITA QUE PUEDAS PONER VARIOS EN VEZ DE QUE ESPERE IDENTACION EN EL DE ABAJO
+          IMAGE: LDEMESTICO/CRM.GURU #NOMEACUERDOELTAG
+          livenessProbe: #Por defecto envia trafico al pod, ver https://stackoverflow.com/questions/53827499/kubernetes-default-liveness-and-readiness-probe#:~:text=TL%2FDR%3A%20there%20is%20no,the%20container%20is%20still%20running.&text=Kubernetes%20will%20not%20do%20anything,and%20readiness%20mean%20to%20you.
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10  # cada cuanto se prueba
+            initialDelaySeconds: 2 
+        # - NAME: OTRAIMAGEN
+        # IMAGE: ASDASDASD
